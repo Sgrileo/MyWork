@@ -1,6 +1,6 @@
-# vuetest
+# 这是一个重构部分线上页面的vue项目
 
-> this is test for my vue project
+讲原有使用BS以及JQ的项目部分页面重构，使用VU以及ant-design for vue
 
 ## Build Setup
 
