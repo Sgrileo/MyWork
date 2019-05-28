@@ -29,21 +29,13 @@
               <a-dropdown>
                 <a href class="ant-dropdown-link">
                   <a href="/login.php">
-                    <a-avatar
-                      :src="'https://img.ixyclass.com/' + $store.state.userInfo.avatar"
-                    ></a-avatar>
+                    <a-avatar :src="'https://img.ixyclass.com/' + $store.state.userInfo.avatar"></a-avatar>
                     <span>{{$store.state.userInfo.realname}}</span>
                   </a>
                 </a>
                 <a-menu slot="overlay">
                   <a-menu-item>
-                    <a href="javascript:;">1st menu item</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <a href="javascript:;">2nd menu item</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <router-link to="/login">退出</router-link>
+                    <router-link to="/login">退出账号</router-link>
                   </a-menu-item>
                 </a-menu>
               </a-dropdown>

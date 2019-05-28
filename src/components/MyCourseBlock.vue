@@ -2,7 +2,7 @@
   <div class="courseblock">
     <div class="courseimgpart">
       <img
-        :src="course.courseImg.length > 0 ? course.courseImg :'https://www.edu-meta.com/styles/tupian.png'"
+        :src="course.courseImg.length > 0 ? course.courseImg :'https://www.ixyclass.com/styles/tupian.png'"
         alt
         class="courseImg"
       >

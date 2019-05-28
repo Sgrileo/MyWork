@@ -3,7 +3,7 @@
     <!-- <img :src="course.coureseImg.length>0 ? course.courseImg : '' " alt class="courseImg"> -->
     <div class="courseimgpart">
       <img
-        :src="course.courseImg.length > 0 ? course.courseImg :'https://www.edu-meta.com/styles/tupian.png'"
+        :src="course.courseImg.length > 0 ? course.courseImg :'https://www.ixyclass.com/styles/tupian.png'"
         alt
         class="courseImg"
       >
@@ -12,10 +12,10 @@
       <div class="courseTit">{{course.courseName}}</div>
       <div class="courseFree" v-if="course.coursePrice=='0.00'">公开课</div>
       <div class="coursePrice" v-else>￥{{course.coursePrice}}</div>
-      <div class="courseInfo">
+      <!-- <div class="courseInfo">
         <span>{{course.courseTeacher}}</span>
         <span class="peopleStudent">{{course.purchaseNum}}人在学</span>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

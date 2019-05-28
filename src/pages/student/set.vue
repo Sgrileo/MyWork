@@ -22,9 +22,33 @@
       <a-col :span="18" class="setaction">
         <a-tabs>
           <a-tab-pane tab="个人设置" key="1">
-            <p>Content of Tab Pane 1</p>
-            <p>Content of Tab Pane 1</p>
-            <p>Content of Tab Pane 1</p>
+            <div class="setpro">
+              <div>
+                <span>头像</span>
+                <a-avatar :src="nowavtor" alt class="userAvtar"></a-avatar>
+                <a-upload
+                  :beforeUpload="beforeUploadimg"
+                  @change="handleChange"
+                  :showUploadList="false"
+                >
+                  <a-button type="primary" size="small">编辑头像</a-button>
+                </a-upload>
+              </div>
+              <p>姓名:&nbsp;&nbsp;&nbsp;{{$store.state.userInfo.realname}}</p>
+              <p>账号:&nbsp;&nbsp;&nbsp;{{$store.state.userInfo.username}}</p>
+              <div>
+                性别:&nbsp;&nbsp;&nbsp;
+                <a-radio-group v-model="sex">
+                  <a-radio :value="parseInt('1')">男</a-radio>
+                  <a-radio :value="parseInt('2')">女</a-radio>
+                </a-radio-group>
+              </div>
+              <div>
+                <br>
+                <br>
+                <a-button type="primary" @click="set">保存</a-button>
+              </div>
+            </div>
           </a-tab-pane>
           <a-tab-pane tab="修改密码" key="2">
             <div class="resetpassword">
@@ -103,13 +127,15 @@ import axios from 'axios'
 import qs from 'qs'// 加载需要的模块
 import HeaderNav from '@/components/HeaderNav'
 // import Footerr from '@/components/Footer'
-import MyCourseBlock from '@/components/MyCourseBlock'
+function getBase64 (img, callback) {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
+}
 export default {
   name: 'courseList',
   components: {
-    HeaderNav: HeaderNav,
-    // Footerr: Footerr,
-    MyCourseBlock: MyCourseBlock
+    HeaderNav: HeaderNav
   },
   data () {
     return {
@@ -130,14 +156,48 @@ export default {
       phonecode: '',
       codeimg: 'https://www.ixyclass.com/img/code.php?t=0',
       phonenum: this.$store.state.userInfo.mobile,
-      step: 1
+      step: 1,
+      sex: this.$store.state.userInfo.gender,
+      nowavtor: 'https://img.ixyclass.com/' + this.$store.state.userInfo.avatar
     }
   },
   created () {
-    // this.getlesson()
-    // this.getmycourse()
   },
   methods: {
+    beforeUploadimg (file) {
+      const isJPG = file.type === 'image/jpeg' || 'image/png'
+      if (!isJPG) {
+        this.$message.error('请上传JPG或者PNG文件')
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isLt2M) {
+        this.$message.error('文件请不要超过2M')
+      }
+      return isJPG && isLt2M
+    },
+    handleChange (info) {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, (imageUrl) => {
+        this.nowavtor = imageUrl
+      })
+    },
+    set: function () {
+      axios({
+        url: this.API1 + '/open/stu-manager/set.do',
+        method: 'post',
+        headers: {},
+        data: {
+          avatar: this.nowavtor,
+          gender: this.sex
+        }
+      }).then((res) => {
+        if (res.data.errorMessage) {
+          this.$message.error(res.data.errorMessage)
+        } else {
+          this.$message.success('修改成功，重新登录后生效')
+        }
+      })
+    },
     piccodecheck: function () {
       if (this.imgCode.length === 4) {
         this.ifsend = false
@@ -248,5 +308,13 @@ export default {
 }
 .bindaction {
   padding: 20px;
+}
+.setpro {
+  padding: 20px;
+  .userAvtar {
+    width: 100px;
+    height: 100px;
+    margin-left: 20px;
+  }
 }
 </style>
