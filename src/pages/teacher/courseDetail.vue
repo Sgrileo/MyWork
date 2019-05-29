@@ -71,11 +71,11 @@
                       </a>
                       <a-upload
                         name="file"
-                        :multiple="true"
+                        :multiple="false"
                         :action="'/api/upload/flv-file.do'"
                         :data="{'lessonId':record.id}"
                         :beforeUpload="beforeUpload"
-                        :fileList="fileList"
+                        @change="videoChange"
                       >
                         <a-button
                           type="primary"
@@ -87,11 +87,9 @@
                       <a-button type="primary" v-if="record.videoStatus==3" disabled>转码失败</a-button>
                     </div>
                     <div slot="ware" slot-scope="text, record, index">
-                      <router-link
-                        :to="'/play/doc/index.html?id=' + record.id + '&title=' + record.name"
-                      >
+                      <a :href="'/play/doc/index.html?id=' + record.id + '&title=' + record.name">
                         <a-button type="primary" size="small">管理课件</a-button>
-                      </router-link>
+                      </a>
                       <a-button
                         type="primary"
                         size="small"
@@ -197,8 +195,17 @@ export default {
     this.getlessonList()
   },
   methods: {
+    videoChange: function (info) {
+      if (info.file.status === 'done') {
+        this.$message.success('文件上传成功')
+        this.getlessonList()
+      } else if (info.file.status === 'error') {
+        this.$message.error('上传失败，请重试')
+      }
+    },
     beforeUpload: function (file) {
-      const isflv = file.type === 'flv'
+      console.log(file.type)
+      const isflv = file.type === 'video/x-flv'
       if (!isflv) {
         this.$message.error('只能上传FLV文件')
         this.fileList = []

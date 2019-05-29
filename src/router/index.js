@@ -10,6 +10,7 @@ import ForgetPassword from '@/pages/forgetpass'
 import RealIndex from '@/pages/realindex'
 import Market from '@/pages/market'
 import coursedetail from '@/pages/coursedetail'
+import download from '@/pages/downloadpage'
 // 学生页面
 import student from '@/pages/student/index.vue'
 import LessonList from '@/pages/student/lessonList.vue'
@@ -56,6 +57,14 @@ export default new Router({
     path: '/market',
     name: 'Market',
     component: Market,
+    beforeEnter: (to, from, next) => {
+      next()
+    }
+  },
+  {
+    path: '/download',
+    name: 'download',
+    component: download,
     beforeEnter: (to, from, next) => {
       next()
     }

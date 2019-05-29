@@ -165,7 +165,7 @@ export default {
       this.gradevisible = true
     },
     beforeUpload: function (file) {
-      const isflv = file.type === 'flv'
+      const isflv = file.type === 'video/x-flv'
       if (!isflv) {
         this.$message.error('只能上传FLV文件')
         this.fileList = []

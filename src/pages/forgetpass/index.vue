@@ -95,8 +95,18 @@ export default {
             if (res.data.errorMessage) {
               this.$message.error(res.data.errorMessage)
             } else {
-              this.thisuserinfo = res.data
-              this.current++
+              if (res.data.isMobileValid === false) {
+                this.$notification.open({
+                  message: '温馨提示',
+                  description: '您还未绑定手机号，如要找回密码，请联系客服',
+                  onClick: () => {
+                    console.log('Notification Clicked!')
+                  }
+                })
+              } else {
+                this.thisuserinfo = res.data
+                this.current++
+              }
             }
           })
       } else if (this.current === 1) {

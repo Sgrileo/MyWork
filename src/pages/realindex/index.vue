@@ -4,7 +4,11 @@
     <a-carousel autoplay>
       <div v-for="item in banners" :key="item.id">
         <div v-bind:style="{'background-color':'#'+item.backColor}">
-          <a-row type="flex" justify="center">
+          <a-row
+            type="flex"
+            justify="center"
+            v-bind:style="{'background-color':'#'+item.backColor}"
+          >
             <a-col :span="18">
               <img :src="item.img" alt class="bannerimg">
             </a-col>
@@ -104,8 +108,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .bannerimg {
-  object-fit: cover;
-  height: 400px;
+  width: 100%;
+  // object-fit: cover;
+  // height: 400px;
 }
 .recommendBlock {
   margin-top: 20px;

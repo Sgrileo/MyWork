@@ -54,11 +54,10 @@
                       </a>
                       <a-upload
                         name="file"
-                        :multiple="true"
-                        :action="'/api/upload/flv-file.do'"
+                        :action="'/upload/flv-file.do'"
                         :data="{'lessonId':record.id}"
                         :beforeUpload="beforeUpload"
-                        :fileList="fileList"
+                        @change="videoChange"
                       >
                         <a-button type="primary" v-if="record.videoStatus==0" size="small">上传录像</a-button>
                       </a-upload>
@@ -132,11 +131,10 @@
 
                         <a-upload
                           name="file"
-                          :multiple="true"
-                          :action="'/api/upload/flv-file.do'"
+                          :action="'/upload/flv-file.do'"
                           :data="{'lessonId':record.id}"
                           :beforeUpload="beforeUpload"
-                          :fileList="fileList"
+                          @change="videoChange"
                         >
                           <a-button
                             type="primary"
@@ -254,8 +252,16 @@ export default {
     this.getfuturelesson()
   },
   methods: {
+    videoChange: function (info) {
+      if (info.file.status === 'done') {
+        this.$message.success('文件上传成功')
+        this.getlesson()
+      } else if (info.file.status === 'error') {
+        this.$message.error('上传失败，请重试')
+      }
+    },
     beforeUpload: function (file) {
-      const isflv = file.type === 'flv'
+      const isflv = file.type === 'video/x-flv'
       if (!isflv) {
         this.$message.error('只能上传FLV文件')
         this.fileList = []

@@ -14,7 +14,9 @@
             <a-menu-item key="market">
               <router-link to="/market">课程中心</router-link>
             </a-menu-item>
-            <a-menu-item key="download">客户端下载</a-menu-item>
+            <a-menu-item key="download">
+              <router-link to="/download">客户端下载</router-link>
+            </a-menu-item>
           </a-menu>
         </a-col>
         <a-col :span="4" class="setlogin">
