@@ -95,6 +95,10 @@
                 </div>
               </a-tab-pane>
               <a-tab-pane tab="课时信息" key="3">
+                <div class="addlesson">
+                  <a-button type="primary" @click="showadd">添加课时</a-button>
+                </div>
+
                 <a-table :columns="columns" :dataSource="lessonList" :pagination="false">
                   <div slot="name" slot-scope="text, record, index">
                     <div>第{{index+1}}节&nbsp;{{record.name}}</div>
@@ -298,12 +302,16 @@ export default {
           startTime: this.lessonstartTime,
           fileIds: [],
           name: this.lessonName,
-          endTime: moment(this.lessonstartTime).add(45, 'm').format('YYYY-MM-DD HH:mm:ss')
+          endTime: moment(this.lessonstartTime).add(this.lessonLasttime, 'm').format('YYYY-MM-DD HH:mm:ss')
         }
       }).then((res) => {
-        this.addvisible = false
-        this.$message.success('添加成功')
-        this.getlessonList()
+        if (res.data.errorMessage) {
+          this.$message.error(res.data.errorMessage)
+        } else {
+          this.addvisible = false
+          this.$message.success('添加成功')
+          this.getlessonList()
+        }
       })
     },
     gradechange: function (checkedValues) {
@@ -404,12 +412,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.addlesson {
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
 // 导航部分
 .userpart {
   margin-top: 20px;
   .leftnav {
     background-color: #fff;
-    -webkit-transform: translateY(-6px);
     -webkit-box-shadow: 1px 1px 4px #c7c9c8;
     -moz-box-shadow: 1px 1px 4px #c7c9c8;
     box-shadow: 1px 1px 4px #c7c9c8;

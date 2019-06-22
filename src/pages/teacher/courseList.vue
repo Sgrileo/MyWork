@@ -35,7 +35,7 @@
                         </a-col>
                         <a-col :span="12">
                           <div class="coursetext">
-                            <div>{{item.courseName}}</div>
+                            <div class="coursetitle">{{item.courseName}}</div>
                             <div class="process">进行至{{item.coverHour}}节,共{{item.countHour}}节</div>
                           </div>
                         </a-col>
@@ -106,7 +106,6 @@ export default {
   margin-top: 20px;
   .leftnav {
     background-color: #fff;
-    -webkit-transform: translateY(-6px);
     -webkit-box-shadow: 1px 1px 4px #c7c9c8;
     -moz-box-shadow: 1px 1px 4px #c7c9c8;
     box-shadow: 1px 1px 4px #c7c9c8;
@@ -174,7 +173,9 @@ export default {
   .coursetext {
     position: relative;
     padding-left: 5px;
-    height: 100%;
+    .coursetitle {
+      padding-bottom: 40%;
+    }
   }
   .process {
     font-size: 12px;

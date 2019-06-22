@@ -71,8 +71,8 @@
                       </a>
                       <a-upload
                         name="file"
-                        :multiple="false"
-                        :action="'/api/upload/flv-file.do'"
+                        accept=".flv"
+                        :action="'/upload/flv-file.do'"
                         :data="{'lessonId':record.id}"
                         :beforeUpload="beforeUpload"
                         @change="videoChange"
@@ -200,12 +200,11 @@ export default {
         this.$message.success('文件上传成功')
         this.getlessonList()
       } else if (info.file.status === 'error') {
-        this.$message.error('上传失败，请重试')
+        this.$message.error('上传失败，请重试!')
       }
     },
     beforeUpload: function (file) {
-      console.log(file.type)
-      const isflv = file.type === 'video/x-flv'
+      const isflv = file.name.substring(file.name.length - 4, file.name.length).toLowerCase() === '.flv'
       if (!isflv) {
         this.$message.error('只能上传FLV文件')
         this.fileList = []
@@ -266,12 +265,16 @@ export default {
           startTime: this.lessonstartTime,
           fileIds: [],
           name: this.lessonName,
-          endTime: moment(this.lessonstartTime).add(45, 'm').format('YYYY-MM-DD HH:mm:ss')
+          endTime: moment(this.lessonstartTime).add(this.lessonLasttime, 'm').format('YYYY-MM-DD HH:mm:ss')
         }
       }).then((res) => {
-        this.addvisible = false
-        this.$message.success('添加成功')
-        this.getlessonList()
+        if (res.data.errorMessage) {
+          this.$message.error(res.data.errorMessage)
+        } else {
+          this.addvisible = false
+          this.$message.success('添加成功')
+          this.getlessonList()
+        }
       })
     },
     showadd: function () {
@@ -286,7 +289,6 @@ export default {
   margin-top: 20px;
   .leftnav {
     background-color: #fff;
-    -webkit-transform: translateY(-6px);
     -webkit-box-shadow: 1px 1px 4px #c7c9c8;
     -moz-box-shadow: 1px 1px 4px #c7c9c8;
     box-shadow: 1px 1px 4px #c7c9c8;

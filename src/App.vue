@@ -33,7 +33,7 @@ export default {
 
 <style lang="less">
 body {
-  min-width: 1200px;
+  min-width: 1310px;
   background-color: #f4f4f4;
 }
 #app {

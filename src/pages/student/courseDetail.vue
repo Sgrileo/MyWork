@@ -80,7 +80,11 @@
                   <a
                     :href="'/clazz/play.php?lesson_id='+ lesson.lessonId + '&courseid='+coursedetail.courseId+'&title='+lesson.lessonName"
                   >
-                    <a-button type="primary" v-if="lesson.videoStatus!=0" size="small">查看录像</a-button>
+                    <a-button
+                      type="primary"
+                      v-if="lesson.enterStatus!=2 && lesson.videoStatus!=0"
+                      size="small"
+                    >查看录像</a-button>
                   </a>
                 </a-col>
                 <a-col :span="2">

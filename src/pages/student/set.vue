@@ -84,6 +84,9 @@
             </div>
           </a-tab-pane>
           <a-tab-pane tab="安全绑定" key="3">
+            <div v-if="phonenum">
+              <div v-if="phonenum.length > 0 && step!=3" class="bindaction">您已经绑定手机号{{phonenum}}</div>
+            </div>
             <div v-if="phonenum.length > 0 && step!=3" class="bindaction">您已经绑定手机号{{phonenum}}</div>
             <div v-if="(!phonenum || phonenum.length == 0) && step!=3" class="bindaction">
               你还没有绑定手机号
@@ -165,7 +168,7 @@ export default {
   },
   methods: {
     beforeUploadimg (file) {
-      const isJPG = file.type === 'image/jpeg' || 'image/png'
+      const isJPG = file.name.substring(file.name.length - 4, file.name.length).toLowerCase() === '.jpg' || '.png'
       if (!isJPG) {
         this.$message.error('请上传JPG或者PNG文件')
       }

@@ -32,6 +32,7 @@ import teachercourselist from '@/pages/teacher/courseList.vue'
 import teachercoursedetail from '@/pages/teacher/courseDetail.vue'
 import teachercourseedit from '@/pages/teacher/courseEdit.vue'
 import teacheraddcourse from '@/pages/teacher/addCourse.vue'
+import teacherset from '@/pages/teacher/set.vue'
 
 Vue.use(Router)
 Vue.use(Antd)
@@ -148,7 +149,6 @@ export default new Router({
       if (store.state.userInfo.roleType === 1) {
         next()
       } else {
-        alert(46546)
         next('/login')
       }
     },
@@ -202,6 +202,15 @@ export default new Router({
       component: teachertimeTable,
       beforeEnter: (to, from, next) => {
         console.log('进入课表管理')
+        next()
+      }
+    },
+    {
+      path: 'set',
+      name: 'teacherset',
+      component: teacherset,
+      beforeEnter: (to, from, next) => {
+        console.log('老师设置')
         next()
       }
     },

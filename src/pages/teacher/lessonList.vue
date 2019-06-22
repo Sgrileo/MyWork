@@ -54,6 +54,7 @@
                       </a>
                       <a-upload
                         name="file"
+                        accept=".flv"
                         :action="'/upload/flv-file.do'"
                         :data="{'lessonId':record.id}"
                         :beforeUpload="beforeUpload"
@@ -261,7 +262,7 @@ export default {
       }
     },
     beforeUpload: function (file) {
-      const isflv = file.type === 'video/x-flv'
+      const isflv = file.name.substring(file.name.length - 4, file.name.length).toLowerCase() === '.flv'
       if (!isflv) {
         this.$message.error('只能上传FLV文件')
         this.fileList = []
@@ -328,7 +329,6 @@ export default {
   margin-top: 20px;
   .leftnav {
     background-color: #fff;
-    -webkit-transform: translateY(-6px);
     -webkit-box-shadow: 1px 1px 4px #c7c9c8;
     -moz-box-shadow: 1px 1px 4px #c7c9c8;
     box-shadow: 1px 1px 4px #c7c9c8;

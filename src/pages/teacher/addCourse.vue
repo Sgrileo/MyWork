@@ -293,7 +293,6 @@ export default {
   margin-top: 20px;
   .leftnav {
     background-color: #fff;
-    -webkit-transform: translateY(-6px);
     -webkit-box-shadow: 1px 1px 4px #c7c9c8;
     -moz-box-shadow: 1px 1px 4px #c7c9c8;
     box-shadow: 1px 1px 4px #c7c9c8;

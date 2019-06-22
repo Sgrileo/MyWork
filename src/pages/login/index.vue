@@ -15,7 +15,13 @@
           </div>
           <div class="type-part">
             <!-- <label for>密码：</label> -->
-            <a-input type="password" v-model="form.password" placeholder="请输入密码" class="codeinput">
+            <a-input
+              type="password"
+              v-model="form.password"
+              placeholder="请输入密码"
+              @pressEnter="login"
+              class="codeinput"
+            >
               <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)"/>
             </a-input>
           </div>
@@ -71,7 +77,7 @@ export default {
             this.$message.error(res.data.err)
           } else {
             this.nextLogin(res.data)
-            console.log(res.data)
+            // console.log(res.data)
           }
         })
     },
@@ -84,7 +90,7 @@ export default {
         data: qs.stringify(this.form)
       }).then((res) => {
         logindata.successUrl = res.data.successUrl
-        console.log(logindata)
+        // console.log(logindata)
         this.$store.commit('handleUserName', logindata)
         window.location.href = '/login.php'
         // if (logindata.successUrl === '/teacher/index.php') {
